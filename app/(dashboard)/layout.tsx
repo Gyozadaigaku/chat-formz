@@ -1,6 +1,8 @@
 import Logo from "@/components/logo";
 import ThemeSwitcher from "@/components/theme-switcher";
-import { UserButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 import React, { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -10,10 +12,19 @@ export default function Layout({ children }: { children: ReactNode }) {
         <Logo />
         <div className="flex items-center gap-4">
           <ThemeSwitcher />
-          <UserButton afterSignOutUrl="/sign-in" />
+          <SignedOut>
+            <Button asChild={true} className="rounded-full" size="sm">
+              <Link href="/sign-in">Login</Link>
+            </Button>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </nav>
-      <main className="flex w-full flex-grow">{children}</main>
+      <main className="flex w-full flex-grow">
+        <SignedIn>{children}</SignedIn>
+      </main>
     </div>
   );
 }

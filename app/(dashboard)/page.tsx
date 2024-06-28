@@ -168,7 +168,7 @@ function FormCard({ form }: { form: Form }) {
         {!form.published && (
           <Button asChild variant="secondary" className="text-md mt-2 w-full gap-4">
             <Link href={`/builder/${form.id}`}>
-              Edit form <Pencil className="size-4" />
+              Edit form <Pencil size={16} />
             </Link>
           </Button>
         )}

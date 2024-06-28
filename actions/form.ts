@@ -79,3 +79,17 @@ export async function GetForms() {
   });
 }
 
+export async function GetFormById(id: number) {
+  const user = await currentUser();
+  if (!user) {
+    throw new UserNotFoundErr("You must be signed in to use this feature.");
+  }
+
+  return await prisma.form.findUnique({
+    where: {
+      userId: user.id,
+      id,
+    },
+  });
+}
+

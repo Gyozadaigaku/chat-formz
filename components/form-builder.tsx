@@ -2,6 +2,7 @@
 
 import { Form } from "@prisma/client";
 import SaveFormBtn from "./save-form-btn";
+import Designer from "./designer";
 
 export default function FormBuilder({ form }: { form: Form }) {
   return (
@@ -19,7 +20,9 @@ export default function FormBuilder({ form }: { form: Form }) {
           )}
         </div>
       </nav>
-      <div className="relative flex h-[200px] w-full flex-grow items-center justify-center overflow-y-auto bg-accent bg-[url(/paper.svg)] dark:bg-[url(/paper-dark.svg)]"></div>
+      <div className="relative flex h-[200px] w-full flex-grow items-center justify-center overflow-y-auto bg-accent bg-[url(/paper.svg)] dark:bg-[url(/paper-dark.svg)]">
+        <Designer />
+      </div>
     </main>
   );
 }

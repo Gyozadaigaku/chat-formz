@@ -12,6 +12,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 import Link from "next/link";
+import PreviewDialogBtn from "./preview-dialog-btn";
 
 export default function FormBuilder({ form }: { form: Form }) {
   const { setElements, setSelectedElement } = useDesigner();
@@ -106,6 +107,7 @@ export default function FormBuilder({ form }: { form: Form }) {
             {form.name}
           </h2>
           <div className="flex items-center gap-2">
+            <PreviewDialogBtn />
             {!form.published && (
               <>
                 <SaveFormBtn id={form.id} />

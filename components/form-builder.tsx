@@ -4,6 +4,7 @@ import { Form } from "@prisma/client";
 import SaveFormBtn from "./save-form-btn";
 import Designer from "./designer";
 import { DndContext } from "@dnd-kit/core";
+import DragOverlayWrapper from "./drag-overlay-wrapper";
 
 export default function FormBuilder({ form }: { form: Form }) {
   return (
@@ -26,6 +27,7 @@ export default function FormBuilder({ form }: { form: Form }) {
           <Designer />
         </div>
       </main>
+      <DragOverlayWrapper />
     </DndContext>
   );
 }

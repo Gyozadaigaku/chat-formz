@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 function SaveFormBtn({ id }: { id: number }) {
   return (
     <Button variant="outline" className="gap-2">
-      <Save className="h-4 w-4" />
+      <Save className="size-4" />
       Save
     </Button>
   );

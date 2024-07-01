@@ -32,7 +32,6 @@ function Designer() {
 
       // First scenario
       if (droppingSidebarBtnOverDesignerDropArea) {
-        console.log("aaa");
         const type = active.data?.current?.type;
         const newElement = FormElements[type as ElementsType].construct(idGenerator());
 
@@ -51,7 +50,6 @@ function Designer() {
 
       // Second scenario
       if (droppingSidebarBtnOverDesignerElement) {
-        console.log("bbb");
         const type = active.data?.current?.type;
         const newElement = FormElements[type as ElementsType].construct(idGenerator());
 
@@ -78,7 +76,6 @@ function Designer() {
         isDroppingOverDesignerElement && isDraggingDesignerElement;
 
       if (draggingDesignerElementOverAnotherDesignerElement) {
-        console.log("ccc");
         const activeId = active.data?.current?.elementId;
         const overId = over.data?.current?.elementId;
 

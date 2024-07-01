@@ -1,13 +1,43 @@
 import { Save } from "lucide-react";
 import { Button } from "./ui/button";
+import useDesigner from "./hooks/use-designer";
+import { UpdateFormContent } from "@/actions/form";
+import { toast } from "./ui/use-toast";
+import { useTransition } from "react";
+import { LoaderCircle } from "lucide-react";
 
-function SaveFormBtn({ id }: { id: number }) {
+export default function SaveFormBtn({ id }: { id: number }) {
+  const { elements } = useDesigner();
+  const [loading, startTransition] = useTransition();
+
+  const updateFormContent = async () => {
+    try {
+      const jsonElements = JSON.stringify(elements);
+      await UpdateFormContent(id, jsonElements);
+      toast({
+        title: "Success",
+        description: "Your form has been saved",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
-    <Button variant="outline" className="gap-2">
+    <Button
+      variant="outline"
+      className="gap-2"
+      disabled={loading}
+      onClick={() => {
+        startTransition(updateFormContent);
+      }}>
       <Save className="size-4" />
       Save
+      {loading && <LoaderCircle className="animate-spin" />}
     </Button>
   );
 }
-
-export default SaveFormBtn;

@@ -10,7 +10,7 @@ import { idGenerator } from "@/lib/id-generator";
 import { Button } from "./ui/button";
 import { Trash2 } from "lucide-react";
 
-function Designer() {
+export default function Designer() {
   const { elements, addElement, selectedElement, setSelectedElement, removeElement } = useDesigner();
 
   const droppable = useDroppable({
@@ -175,7 +175,7 @@ function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
       ref={draggable.setNodeRef}
       {...draggable.listeners}
       {...draggable.attributes}
-      className="relative flex h-[120px] flex-col rounded-md text-foreground ring-1 ring-inset ring-accent hover:cursor-pointer"
+      className="relative flex min-h-[120px] flex-col rounded-md text-foreground ring-1 ring-inset ring-accent hover:cursor-pointer"
       onMouseEnter={() => {
         setMouseIsOver(true);
       }}
@@ -211,7 +211,7 @@ function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
       )}
       <div
         className={cn(
-          "pointer-events-none flex h-[120px] w-full items-center rounded-md bg-accent/40 px-4 py-2 opacity-100",
+          "pointer-events-none flex min-h-[120px] w-full items-center rounded-md bg-accent/40 px-4 py-2 opacity-100",
           mouseIsOver && "opacity-30"
         )}>
         <DesignerElement elementInstance={element} />
@@ -222,5 +222,3 @@ function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
     </div>
   );
 }
-
-export default Designer;

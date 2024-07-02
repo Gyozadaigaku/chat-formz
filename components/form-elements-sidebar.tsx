@@ -12,6 +12,7 @@ export default function FormElementsSidebar() {
         <p className="col-span-1 my-2 place-self-start text-sm text-muted-foreground md:col-span-2">
           Layout elements
         </p>
+        <SidebarBtnElement formElement={FormElements.TitleField} />
 
         <p className="col-span-1 my-2 place-self-start text-sm text-muted-foreground md:col-span-2">
           Form elements

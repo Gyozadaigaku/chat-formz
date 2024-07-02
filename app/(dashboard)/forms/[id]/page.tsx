@@ -151,6 +151,9 @@ async function SubmissionsTable({ id }: { id: number }) {
           <TableBody>
             {rows.map((row, index) => (
               <TableRow key={index}>
+                {columns.map((column) => (
+                  <RowCell key={column.id} type={column.type} value={row[column.id]} />
+                ))}
                 <TableCell className="text-right text-muted-foreground">
                   {formatDistance(row.submittedAt, new Date(), {
                     addSuffix: true,
@@ -163,4 +166,9 @@ async function SubmissionsTable({ id }: { id: number }) {
       </div>
     </>
   );
+}
+
+function RowCell({ type, value }: { type: ElementsType; value: string }) {
+  let node: React.ReactNode = value;
+  return <TableCell>{node}</TableCell>;
 }

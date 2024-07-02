@@ -14,6 +14,7 @@ import { toast } from "./ui/use-toast";
 import Link from "next/link";
 import PreviewDialogBtn from "./preview-dialog-btn";
 import PublishFormBtn from "./publish-form-btn";
+import Confetti from "react-confetti";
 
 export default function FormBuilder({ form }: { form: Form }) {
   const { setElements, setSelectedElement } = useDesigner();
@@ -56,6 +57,12 @@ export default function FormBuilder({ form }: { form: Form }) {
   if (form.published) {
     return (
       <>
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+          numberOfPieces={1000}
+        />
         <div className="flex h-full w-full flex-col items-center justify-center">
           <div className="max-w-md">
             <h1 className="mb-10 border-b pb-2 text-center text-4xl font-bold text-primary">

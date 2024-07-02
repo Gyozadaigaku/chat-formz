@@ -13,6 +13,7 @@ import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 import Link from "next/link";
 import PreviewDialogBtn from "./preview-dialog-btn";
+import PublishFormBtn from "./publish-form-btn";
 
 export default function FormBuilder({ form }: { form: Form }) {
   const { setElements, setSelectedElement } = useDesigner();
@@ -111,6 +112,7 @@ export default function FormBuilder({ form }: { form: Form }) {
             {!form.published && (
               <>
                 <SaveFormBtn id={form.id} />
+                <PublishFormBtn id={form.id} />
               </>
             )}
           </div>

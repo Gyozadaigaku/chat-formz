@@ -1,9 +1,9 @@
-import Logo from "@/components/logo";
-import ThemeSwitcher from "@/components/theme-switcher";
-import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Link from "next/link";
-import React, { ReactNode } from "react";
+import Logo from '@/components/logo'
+import ThemeSwitcher from '@/components/theme-switcher'
+import { Button } from '@/components/ui/button'
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import Link from 'next/link'
+import React, { ReactNode } from 'react'
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -26,5 +26,5 @@ export default function Layout({ children }: { children: ReactNode }) {
         <SignedIn>{children}</SignedIn>
       </main>
     </div>
-  );
+  )
 }

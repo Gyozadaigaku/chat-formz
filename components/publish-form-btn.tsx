@@ -1,7 +1,7 @@
-import { PublishForm } from "@/actions/form";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { LoaderCircle, Send } from "lucide-react";
+import { PublishForm } from '@/actions/form'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
+import { LoaderCircle, Send } from 'lucide-react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,27 +12,27 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./ui/alert-dialog";
-import { Button } from "./ui/button";
-import { toast } from "./ui/use-toast";
+} from './ui/alert-dialog'
+import { Button } from './ui/button'
+import { toast } from './ui/use-toast'
 
 export default function PublishFormBtn({ id }: { id: number }) {
-  const [loading, startTransition] = useTransition();
-  const router = useRouter();
+  const [loading, startTransition] = useTransition()
+  const router = useRouter()
 
   async function publishForm() {
     try {
-      await PublishForm(id);
+      await PublishForm(id)
       toast({
-        title: "Success",
-        description: "Your form is now available to the public",
-      });
-      router.refresh();
+        title: 'Success',
+        description: 'Your form is now available to the public',
+      })
+      router.refresh()
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Something went wrong",
-      });
+        title: 'Error',
+        description: 'Something went wrong',
+      })
     }
   }
 
@@ -48,11 +48,12 @@ export default function PublishFormBtn({ id }: { id: number }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. After publishing you will not be able to edit this form. <br />
+            This action cannot be undone. After publishing you will not be able
+            to edit this form. <br />
             <br />
             <span className="font-medium">
-              By publishing this form you will make it available to the public and you will be able to collect
-              submissions.
+              By publishing this form you will make it available to the public
+              and you will be able to collect submissions.
             </span>
           </AlertDialogDescription>
         </AlertDialogHeader>
@@ -61,13 +62,14 @@ export default function PublishFormBtn({ id }: { id: number }) {
           <AlertDialogAction
             disabled={loading}
             onClick={(e) => {
-              e.preventDefault();
-              startTransition(publishForm);
-            }}>
+              e.preventDefault()
+              startTransition(publishForm)
+            }}
+          >
             Proceed {loading && <LoaderCircle className="animate-spin" />}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  );
+  )
 }

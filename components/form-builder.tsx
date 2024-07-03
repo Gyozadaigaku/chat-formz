@@ -1,58 +1,64 @@
-"use client";
+'use client'
 
-import { Form } from "@prisma/client";
-import { useEffect, useState } from "react";
-import SaveFormBtn from "./save-form-btn";
-import Designer from "./designer";
-import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
-import DragOverlayWrapper from "./drag-overlay-wrapper";
-import useDesigner from "./hooks/use-designer";
-import { LoaderCircle, ArrowLeft, ArrowRight } from "lucide-react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { toast } from "./ui/use-toast";
-import Link from "next/link";
-import PreviewDialogBtn from "./preview-dialog-btn";
-import PublishFormBtn from "./publish-form-btn";
-import Confetti from "react-confetti";
+import { Form } from '@prisma/client'
+import { useEffect, useState } from 'react'
+import SaveFormBtn from './save-form-btn'
+import Designer from './designer'
+import {
+  DndContext,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
+import DragOverlayWrapper from './drag-overlay-wrapper'
+import useDesigner from './hooks/use-designer'
+import { LoaderCircle, ArrowLeft, ArrowRight } from 'lucide-react'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
+import { toast } from './ui/use-toast'
+import Link from 'next/link'
+import PreviewDialogBtn from './preview-dialog-btn'
+import PublishFormBtn from './publish-form-btn'
+import Confetti from 'react-confetti'
 
 export default function FormBuilder({ form }: { form: Form }) {
-  const { setElements, setSelectedElement } = useDesigner();
-  const [isReady, setIsReady] = useState(false);
+  const { setElements, setSelectedElement } = useDesigner()
+  const [isReady, setIsReady] = useState(false)
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10, // 10px
     },
-  });
+  })
 
   const touchSensor = useSensor(TouchSensor, {
     activationConstraint: {
       delay: 300,
       tolerance: 5,
     },
-  });
+  })
 
-  const sensors = useSensors(mouseSensor, touchSensor);
+  const sensors = useSensors(mouseSensor, touchSensor)
 
   useEffect(() => {
-    if (isReady) return;
-    const elements = JSON.parse(form.content);
-    setElements(elements);
-    setSelectedElement(null);
-    const readyTimeout = setTimeout(() => setIsReady(true), 500);
-    return () => clearTimeout(readyTimeout);
-  }, [form, setElements, isReady, setSelectedElement]);
+    if (isReady) return
+    const elements = JSON.parse(form.content)
+    setElements(elements)
+    setSelectedElement(null)
+    const readyTimeout = setTimeout(() => setIsReady(true), 500)
+    return () => clearTimeout(readyTimeout)
+  }, [form, setElements, isReady, setSelectedElement])
 
   if (!isReady) {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center">
         <LoaderCircle className="h-12 w-12 animate-spin" />
       </div>
-    );
+    )
   }
 
-  const shareUrl = `${window.location.origin}/submit/${form.shareURL}`;
+  const shareUrl = `${window.location.origin}/submit/${form.shareURL}`
 
   if (form.published) {
     return (
@@ -77,23 +83,24 @@ export default function FormBuilder({ form }: { form: Form }) {
               <Button
                 className="mt-2 w-full"
                 onClick={() => {
-                  navigator.clipboard.writeText(shareUrl);
+                  navigator.clipboard.writeText(shareUrl)
                   toast({
-                    title: "Copied!",
-                    description: "Link copied to clipboard",
-                  });
-                }}>
+                    title: 'Copied!',
+                    description: 'Link copied to clipboard',
+                  })
+                }}
+              >
                 Copy link
               </Button>
             </div>
             <div className="flex justify-between">
-              <Button variant={"link"} asChild>
-                <Link href={"/"} className="gap-2">
+              <Button variant={'link'} asChild>
+                <Link href={'/'} className="gap-2">
                   <ArrowLeft />
                   Go back home
                 </Link>
               </Button>
-              <Button variant={"link"} asChild>
+              <Button variant={'link'} asChild>
                 <Link href={`/forms/${form.id}`} className="gap-2">
                   Form details
                   <ArrowRight />
@@ -103,7 +110,7 @@ export default function FormBuilder({ form }: { form: Form }) {
           </div>
         </div>
       </>
-    );
+    )
   }
 
   return (
@@ -130,5 +137,5 @@ export default function FormBuilder({ form }: { form: Form }) {
       </main>
       <DragOverlayWrapper />
     </DndContext>
-  );
+  )
 }

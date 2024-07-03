@@ -1,65 +1,65 @@
-import { TextFieldFormElement } from "./fields/text-field";
-import { TextAreaFormElement } from "./fields/textarea-field";
-import { TitleFieldFormElement } from "./fields/title-field";
-import { SubTitleFieldFormElement } from "./fields/subtitle-field";
-import { ParagprahFieldFormElement } from "./fields/paragraph-field";
-import { SeparatorFieldFormElement } from "./fields/separator-field";
-import { SpacerFieldFormElement } from "./fields/spacer-field";
-import { NumberFieldFormElement } from "./fields/number-field";
-import { DateFieldFormElement } from "./fields/date-field";
-import { SelectFieldFormElement } from "./fields/select-field";
-import { CheckboxFieldFormElement } from "./fields/checkbox-field";
+import { TextFieldFormElement } from './fields/text-field'
+import { TextAreaFormElement } from './fields/textarea-field'
+import { TitleFieldFormElement } from './fields/title-field'
+import { SubTitleFieldFormElement } from './fields/subtitle-field'
+import { ParagprahFieldFormElement } from './fields/paragraph-field'
+import { SeparatorFieldFormElement } from './fields/separator-field'
+import { SpacerFieldFormElement } from './fields/spacer-field'
+import { NumberFieldFormElement } from './fields/number-field'
+import { DateFieldFormElement } from './fields/date-field'
+import { SelectFieldFormElement } from './fields/select-field'
+import { CheckboxFieldFormElement } from './fields/checkbox-field'
 
 export type ElementsType =
-  | "TitleField"
-  | "TextAreaField"
-  | "SubTitleField"
-  | "ParagraphField"
-  | "SeparatorField"
-  | "SpacerField"
-  | "TextField"
-  | "NumberField"
-  | "DateField"
-  | "SelectField"
-  | "CheckboxField";
+  | 'TitleField'
+  | 'TextAreaField'
+  | 'SubTitleField'
+  | 'ParagraphField'
+  | 'SeparatorField'
+  | 'SpacerField'
+  | 'TextField'
+  | 'NumberField'
+  | 'DateField'
+  | 'SelectField'
+  | 'CheckboxField'
 
-export type SubmitFunction = (key: string, value: string) => void;
+export type SubmitFunction = (key: string, value: string) => void
 
 export type FormElement = {
-  type: ElementsType;
+  type: ElementsType
 
-  construct: (id: string) => FormElementInstance;
+  construct: (id: string) => FormElementInstance
 
   designerBtnElement: {
-    icon: React.ElementType;
-    label: string;
-  };
+    icon: React.ElementType
+    label: string
+  }
 
   designerComponent: React.FC<{
-    elementInstance: FormElementInstance;
-  }>;
+    elementInstance: FormElementInstance
+  }>
   formComponent: React.FC<{
-    elementInstance: FormElementInstance;
-    submitValue?: SubmitFunction;
-    isInvalid?: boolean;
-    defaultValue?: string;
-  }>;
+    elementInstance: FormElementInstance
+    submitValue?: SubmitFunction
+    isInvalid?: boolean
+    defaultValue?: string
+  }>
   propertiesComponent: React.FC<{
-    elementInstance: FormElementInstance;
-  }>;
+    elementInstance: FormElementInstance
+  }>
 
-  validate: (formElement: FormElementInstance, currentValue: string) => boolean;
-};
+  validate: (formElement: FormElementInstance, currentValue: string) => boolean
+}
 
 export type FormElementInstance = {
-  id: string;
-  type: ElementsType;
-  extraAttributes?: Record<string, any>;
-};
+  id: string
+  type: ElementsType
+  extraAttributes?: Record<string, any>
+}
 
 type FormElementsType = {
-  [key in ElementsType]: FormElement;
-};
+  [key in ElementsType]: FormElement
+}
 export const FormElements: FormElementsType = {
   TitleField: TitleFieldFormElement,
   TextAreaField: TextAreaFormElement,
@@ -72,4 +72,4 @@ export const FormElements: FormElementsType = {
   DateField: DateFieldFormElement,
   SelectField: SelectFieldFormElement,
   CheckboxField: CheckboxFieldFormElement,
-};
+}

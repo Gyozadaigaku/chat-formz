@@ -1,5 +1,5 @@
-import Logo from "@/components/logo";
-import ThemeSwitcher from "@/components/theme-switcher";
+import Logo from '@/components/logo'
+import ThemeSwitcher from '@/components/theme-switcher'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,5 +10,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </nav>
       <main className="flex w-full flex-grow">{children}</main>
     </div>
-  );
+  )
 }

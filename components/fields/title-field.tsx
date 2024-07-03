@@ -1,26 +1,37 @@
-"use client";
+'use client'
 
-import { ElementsType, FormElement, FormElementInstance } from "../form-elements";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
-import useDesigner from "../hooks/use-designer";
+import {
+  ElementsType,
+  FormElement,
+  FormElementInstance,
+} from '../form-elements'
+import { Label } from '../ui/label'
+import { Input } from '../ui/input'
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect } from 'react'
+import useDesigner from '../hooks/use-designer'
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Heading1 } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '../ui/form'
+import { Heading1 } from 'lucide-react'
 
-const type: ElementsType = "TitleField";
+const type: ElementsType = 'TitleField'
 
 const extraAttributes = {
-  title: "Title field",
-};
+  title: 'Title field',
+}
 
 const propertiesSchema = z.object({
   title: z.string().min(2).max(50),
-});
+})
 
 export const TitleFieldFormElement: FormElement = {
   type,
@@ -31,62 +42,74 @@ export const TitleFieldFormElement: FormElement = {
   }),
   designerBtnElement: {
     icon: Heading1,
-    label: "Title field",
+    label: 'Title field',
   },
   designerComponent: DesignerComponent,
   formComponent: FormComponent,
   propertiesComponent: PropertiesComponent,
 
   validate: () => true,
-};
+}
 
 type CustomInstance = FormElementInstance & {
-  extraAttributes: typeof extraAttributes;
-};
+  extraAttributes: typeof extraAttributes
+}
 
-function DesignerComponent({ elementInstance }: { elementInstance: FormElementInstance }) {
-  const element = elementInstance as CustomInstance;
-  const { title } = element.extraAttributes;
+function DesignerComponent({
+  elementInstance,
+}: {
+  elementInstance: FormElementInstance
+}) {
+  const element = elementInstance as CustomInstance
+  const { title } = element.extraAttributes
   return (
     <div className="flex w-full flex-col gap-2">
       <Label className="text-muted-foreground">Title field</Label>
       <p className="text-xl">{title}</p>
     </div>
-  );
+  )
 }
 
-function FormComponent({ elementInstance }: { elementInstance: FormElementInstance }) {
-  const element = elementInstance as CustomInstance;
+function FormComponent({
+  elementInstance,
+}: {
+  elementInstance: FormElementInstance
+}) {
+  const element = elementInstance as CustomInstance
 
-  const { title } = element.extraAttributes;
-  return <p className="text-xl">{title}</p>;
+  const { title } = element.extraAttributes
+  return <p className="text-xl">{title}</p>
 }
 
-type propertiesFormSchemaType = z.infer<typeof propertiesSchema>;
+type propertiesFormSchemaType = z.infer<typeof propertiesSchema>
 
-function PropertiesComponent({ elementInstance }: { elementInstance: FormElementInstance }) {
-  const element = elementInstance as CustomInstance;
-  const { updateElement } = useDesigner();
+function PropertiesComponent({
+  elementInstance,
+}: {
+  elementInstance: FormElementInstance
+}) {
+  const element = elementInstance as CustomInstance
+  const { updateElement } = useDesigner()
   const form = useForm<propertiesFormSchemaType>({
     resolver: zodResolver(propertiesSchema),
-    mode: "onBlur",
+    mode: 'onBlur',
     defaultValues: {
       title: element.extraAttributes.title,
     },
-  });
+  })
 
   useEffect(() => {
-    form.reset(element.extraAttributes);
-  }, [element, form]);
+    form.reset(element.extraAttributes)
+  }, [element, form])
 
   function applyChanges(values: propertiesFormSchemaType) {
-    const { title } = values;
+    const { title } = values
     updateElement(element.id, {
       ...element,
       extraAttributes: {
         title,
       },
-    });
+    })
   }
 
   return (
@@ -94,9 +117,10 @@ function PropertiesComponent({ elementInstance }: { elementInstance: FormElement
       <form
         onBlur={form.handleSubmit(applyChanges)}
         onSubmit={(e) => {
-          e.preventDefault();
+          e.preventDefault()
         }}
-        className="space-y-3">
+        className="space-y-3"
+      >
         <FormField
           control={form.control}
           name="title"
@@ -107,7 +131,7 @@ function PropertiesComponent({ elementInstance }: { elementInstance: FormElement
                 <Input
                   {...field}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") e.currentTarget.blur();
+                    if (e.key === 'Enter') e.currentTarget.blur()
                   }}
                 />
               </FormControl>
@@ -117,5 +141,5 @@ function PropertiesComponent({ elementInstance }: { elementInstance: FormElement
         />
       </form>
     </Form>
-  );
+  )
 }

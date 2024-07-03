@@ -1,7 +1,7 @@
-import React from "react";
-import SidebarBtnElement from "./sidebar-btn-element";
-import { FormElements } from "./form-elements";
-import { Separator } from "./ui/separator";
+import React from 'react'
+import SidebarBtnElement from './sidebar-btn-element'
+import { FormElements } from './form-elements'
+import { Separator } from './ui/separator'
 
 export default function FormElementsSidebar() {
   return (
@@ -29,5 +29,5 @@ export default function FormElementsSidebar() {
         <SidebarBtnElement formElement={FormElements.CheckboxField} />
       </div>
     </div>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 export default function Logo() {
   return (
-    <Link href={"/"} className="text-3xl font-bold">
+    <Link href={'/'} className="text-3xl font-bold">
       PageForm
     </Link>
-  );
+  )
 }

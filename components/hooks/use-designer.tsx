@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import { useContext } from "react";
-import { DesignerContext } from "../context/designer-context";
+import { useContext } from 'react'
+import { DesignerContext } from '../context/designer-context'
 
 export default function useDesigner() {
-  const context = useContext(DesignerContext);
+  const context = useContext(DesignerContext)
 
   if (!context) {
-    throw new Error("useDesigner must be used within a DesignerContext");
+    throw new Error('useDesigner must be used within a DesignerContext')
   }
 
-  return context;
+  return context
 }

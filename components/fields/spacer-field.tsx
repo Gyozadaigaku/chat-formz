@@ -1,26 +1,37 @@
-"use client";
+'use client'
 
-import { ElementsType, FormElement, FormElementInstance } from "../form-elements";
-import { Label } from "../ui/label";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
-import useDesigner from "../hooks/use-designer";
+import {
+  ElementsType,
+  FormElement,
+  FormElementInstance,
+} from '../form-elements'
+import { Label } from '../ui/label'
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect } from 'react'
+import useDesigner from '../hooks/use-designer'
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { SeparatorHorizontal } from "lucide-react";
-import { Slider } from "../ui/slider";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '../ui/form'
+import { SeparatorHorizontal } from 'lucide-react'
+import { Slider } from '../ui/slider'
 
-const type: ElementsType = "SpacerField";
+const type: ElementsType = 'SpacerField'
 
 const extraAttributes = {
   height: 20, // px
-};
+}
 
 const propertiesSchema = z.object({
   height: z.number().min(5).max(200),
-});
+})
 
 export const SpacerFieldFormElement: FormElement = {
   type,
@@ -31,62 +42,74 @@ export const SpacerFieldFormElement: FormElement = {
   }),
   designerBtnElement: {
     icon: SeparatorHorizontal,
-    label: "Spacer field",
+    label: 'Spacer field',
   },
   designerComponent: DesignerComponent,
   formComponent: FormComponent,
   propertiesComponent: PropertiesComponent,
 
   validate: () => true,
-};
+}
 
 type CustomInstance = FormElementInstance & {
-  extraAttributes: typeof extraAttributes;
-};
+  extraAttributes: typeof extraAttributes
+}
 
-function DesignerComponent({ elementInstance }: { elementInstance: FormElementInstance }) {
-  const element = elementInstance as CustomInstance;
-  const { height } = element.extraAttributes;
+function DesignerComponent({
+  elementInstance,
+}: {
+  elementInstance: FormElementInstance
+}) {
+  const element = elementInstance as CustomInstance
+  const { height } = element.extraAttributes
   return (
     <div className="flex w-full flex-col items-center gap-2">
       <Label className="text-muted-foreground">Spacer field: {height}px</Label>
       <SeparatorHorizontal className="h-8 w-8" />
     </div>
-  );
+  )
 }
 
-function FormComponent({ elementInstance }: { elementInstance: FormElementInstance }) {
-  const element = elementInstance as CustomInstance;
+function FormComponent({
+  elementInstance,
+}: {
+  elementInstance: FormElementInstance
+}) {
+  const element = elementInstance as CustomInstance
 
-  const { height } = element.extraAttributes;
-  return <div style={{ height, width: "100%" }}></div>;
+  const { height } = element.extraAttributes
+  return <div style={{ height, width: '100%' }}></div>
 }
 
-type propertiesFormSchemaType = z.infer<typeof propertiesSchema>;
+type propertiesFormSchemaType = z.infer<typeof propertiesSchema>
 
-function PropertiesComponent({ elementInstance }: { elementInstance: FormElementInstance }) {
-  const element = elementInstance as CustomInstance;
-  const { updateElement } = useDesigner();
+function PropertiesComponent({
+  elementInstance,
+}: {
+  elementInstance: FormElementInstance
+}) {
+  const element = elementInstance as CustomInstance
+  const { updateElement } = useDesigner()
   const form = useForm<propertiesFormSchemaType>({
     resolver: zodResolver(propertiesSchema),
-    mode: "onBlur",
+    mode: 'onBlur',
     defaultValues: {
       height: element.extraAttributes.height,
     },
-  });
+  })
 
   useEffect(() => {
-    form.reset(element.extraAttributes);
-  }, [element, form]);
+    form.reset(element.extraAttributes)
+  }, [element, form])
 
   function applyChanges(values: propertiesFormSchemaType) {
-    const { height } = values;
+    const { height } = values
     updateElement(element.id, {
       ...element,
       extraAttributes: {
         height,
       },
-    });
+    })
   }
 
   return (
@@ -94,15 +117,16 @@ function PropertiesComponent({ elementInstance }: { elementInstance: FormElement
       <form
         onBlur={form.handleSubmit(applyChanges)}
         onSubmit={(e) => {
-          e.preventDefault();
+          e.preventDefault()
         }}
-        className="space-y-3">
+        className="space-y-3"
+      >
         <FormField
           control={form.control}
           name="height"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Height (px): {form.watch("height")}</FormLabel>
+              <FormLabel>Height (px): {form.watch('height')}</FormLabel>
               <FormControl className="pt-2">
                 <Slider
                   defaultValue={[field.value]}
@@ -110,7 +134,7 @@ function PropertiesComponent({ elementInstance }: { elementInstance: FormElement
                   max={200}
                   step={1}
                   onValueChange={(value) => {
-                    field.onChange(value[0]);
+                    field.onChange(value[0])
                   }}
                 />
               </FormControl>
@@ -120,5 +144,5 @@ function PropertiesComponent({ elementInstance }: { elementInstance: FormElement
         />
       </form>
     </Form>
-  );
+  )
 }

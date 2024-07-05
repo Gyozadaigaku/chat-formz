@@ -75,7 +75,7 @@ type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes
 }
 
-function DesignerComponent({
+export function DesignerComponent({
   elementInstance,
 }: {
   elementInstance: FormElementInstance
